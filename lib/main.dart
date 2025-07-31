@@ -1,3 +1,4 @@
+import 'package:ecommmerce_app/Screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,6 +10,10 @@ class EcommerceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp();
+    return const MaterialApp(
+      title: 'E-commerce App',
+      home: LoginScreen(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
