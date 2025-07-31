@@ -10,92 +10,111 @@ class LoginScreen extends StatelessWidget {
     final sixe = MediaQuery.of(context).size;
     final height = sixe.height;
     final width = sixe.width;
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.primaryWhite,
       body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: height * 0.03,),
-            Center(
-              child: Padding(
-                 padding: EdgeInsets.only(bottom: 35, top: 29),
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  height: height * 0.15,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: height * 0.03),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 35, top: 29),
+              child: Image.asset(
+                'assets/images/logo.png',
+                height: height * 0.15,
+              ),
+            ),
+          ),
+
+          //Welcome Text
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Welcome!',
+                style: GoogleFonts.poppins(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryBlack,
                 ),
               ),
-            ),  
+            ),
+          ),
 
+          // Sub Text
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 30),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'please login or sign up to continue our app',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: AppColors.greyText,
+                ),
+              ),
+            ),
+          ),
 
-//Welcome Text
-           Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
-      child: Align(
-        alignment: Alignment.centerLeft, 
-        child: Text(
-          'Welcome!',
-          style: GoogleFonts.poppins(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: AppColors.primaryBlack,
+          SizedBox(height: height * 0.06),
+
+          // Email Field
+          buildInputField(label: "Email", hintText: "Enter your email"),
+          SizedBox(height: height * 0.03),
+          buildInputField(
+            label: "Password",
+            hintText: "Enter your password",
+            isPassword: true,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildInputField({
+    required String label,
+    required String hintText,
+    bool isPassword = false,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primaryBlack,
+            ),
           ),
         ),
-      ),
-    ),
-    
-// Sub Text
-      Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 30),
-      child: Align(
-        alignment: Alignment.centerLeft, 
-        child: Text(
-          'please login or sign up to continue our app',
-          style: GoogleFonts.poppins(
-            fontSize: 16,
-            color: AppColors.greyText,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: TextField(
+            obscureText: isPassword,
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: AppColors.primaryBlack,
+            ),
+            decoration: InputDecoration(
+              hintText: hintText,
+              hintStyle: GoogleFonts.poppins(
+                fontSize: 16,
+                color: AppColors.greyText,
+              ),
+              suffixIcon: Icon(
+                Icons.check_circle,
+                color: AppColors.primaryBlack,
+              ),
+            ),
           ),
         ),
-      ),
-    ),
-
-       SizedBox(height: height * 0.06,),
-                // Email Field
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Text(
-                    'Email',
-                    style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primaryBlack,
-                    ),
-                  ),
-                ),
-                Padding(padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your email',
-                      
-                      // border: OutlineInputBorder(
-                      //   borderRadius: BorderRadius.circular(12),
-                      //   borderSide: BorderSide(color: Colors.grey),
-                      // ),
-                      // focusedBorder: OutlineInputBorder(
-                      //   borderRadius: BorderRadius.circular(12),
-                      //   borderSide: BorderSide(color: Colors.blue),
-                      // ),
-                    ),
-                  ),
-                ),
-
-
-
-        
-          ],
-          
-        ),
-      
+      ],
     );
   }
 }
