@@ -1,5 +1,6 @@
 import 'package:ecommmerce_app/Common/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -68,9 +69,51 @@ class LoginScreen extends StatelessWidget {
             hintText: "Enter your password",
             isPassword: true,
           ),
-        ],
-      ),
-    );
+          SizedBox(height: height * 0.06),
+
+            // Login Button
+            buildButton(text: "Login", width: width, height: height * 0.055, onPressed: () {}),
+          SizedBox(height: height * 0.04),
+
+            buildSocialButton(
+              width: width,
+              height: height * 0.055,
+              color: AppColors.facebookColor,
+              icon: Icons.facebook,
+              iconColor: AppColors.primaryWhite,
+              text: "Continue with Facebook",
+              textColor: AppColors.primaryWhite,
+              onPressed: () {},
+            ),
+             SizedBox(height: height * 0.04),
+
+            buildSocialButton(
+              width: width,
+              height: height * 0.055,
+              color: AppColors.primaryWhite,
+              icon: FontAwesomeIcons.google,
+              iconColor: AppColors.pureBlack,
+              text: "Continue with Google",
+              textColor: AppColors.primaryBlack,
+              onPressed: () {},
+            ),
+             SizedBox(height: height * 0.04),
+
+            buildSocialButton(
+              width: width,
+              height: height * 0.055,
+              color: AppColors.primaryWhite,
+              icon: FontAwesomeIcons.apple,
+              iconColor: AppColors.pureBlack,
+              text: "Continue with Apple",
+              textColor: AppColors.primaryBlack,
+              onPressed: () {},
+            )
+
+            
+          ],
+        ),
+      );
   }
 
   Widget buildInputField({
@@ -115,6 +158,78 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildButton({
+    required String text,
+    required double width,
+    required double height,
+    required VoidCallback onPressed,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            elevation: 2,
+            backgroundColor: AppColors.primaryBlack,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
+          onPressed: onPressed,
+          child: Text(
+            text,
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: AppColors.primaryWhite,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildSocialButton({
+    required double width,
+    required double height,
+   required Color color,
+    required IconData icon,
+    required Color iconColor,
+    required String text,
+    required VoidCallback onPressed,
+    Color? textColor,
+    BorderSide? border,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: OutlinedButton.icon(
+          icon: Icon(icon, color: iconColor),
+          label: Text(
+            text,
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: textColor,
+            ),
+          ),
+          style: OutlinedButton.styleFrom(
+            elevation: 2,
+            backgroundColor: color,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
+          onPressed: onPressed,
+        ),
+      ),
     );
   }
 }
