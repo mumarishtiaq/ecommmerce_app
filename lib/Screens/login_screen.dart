@@ -8,112 +8,157 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sixe = MediaQuery.of(context).size;
-    final height = sixe.height;
-    final width = sixe.width;
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: AppColors.primaryWhite,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: height * 0.03),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 35, top: 29),
-              child: Image.asset(
-                'assets/images/logo.png',
-                height: height * 0.15,
-              ),
-            ),
-          ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // 1) Small top padding
+            Spacer(flex: 1),
 
-          //Welcome Text
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Welcome!',
-                style: GoogleFonts.poppins(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primaryBlack,
+            // 2) Logo area
+            Flexible(
+              flex: 2,
+              child: Center(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  // let the image scale down if needed:
+                  width: size.width * 0.5,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),
-          ),
 
-          // Sub Text
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 30),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'please login or sign up to continue our app',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  color: AppColors.greyText,
+            // 3) Main content (texts + fields + login button)
+            Flexible(
+              flex: 6,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Welcome!',
+                        style: GoogleFonts.poppins(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primaryBlack,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'please login or sign up to continue our app',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: AppColors.greyText,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Email & Password
+                    buildInputField(
+                      label: "Email",
+                      hintText: "Enter your email",
+                    ),
+                    const SizedBox(height: 16),
+                    buildInputField(
+                      label: "Password",
+                      hintText: "Enter your password",
+                      isPassword: true,
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Login Button
+                    buildButton(
+                      text: "Login",
+                      width: double.infinity,
+                      height: 48,
+                      onPressed: () {},
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
 
-          SizedBox(height: height * 0.06),
-
-          // Email Field
-          buildInputField(label: "Email", hintText: "Enter your email"),
-          SizedBox(height: height * 0.03),
-          buildInputField(
-            label: "Password",
-            hintText: "Enter your password",
-            isPassword: true,
-          ),
-          SizedBox(height: height * 0.06),
-
-            // Login Button
-            buildButton(text: "Login", width: width, height: height * 0.055, onPressed: () {}),
-          SizedBox(height: height * 0.04),
-
-            buildSocialButton(
-              width: width,
-              height: height * 0.055,
-              color: AppColors.facebookColor,
-              icon: Icons.facebook,
-              iconColor: AppColors.primaryWhite,
-              text: "Continue with Facebook",
-              textColor: AppColors.primaryWhite,
-              onPressed: () {},
+            Flexible(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Row(
+                  children: [
+                    Expanded(child: Divider(thickness: 1)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        "or",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          color: AppColors.greyText,
+                        ),
+                      ),
+                    ),
+                    Expanded(child: Divider(thickness: 1)),
+                  ],
+                ),
+              ),
             ),
-             SizedBox(height: height * 0.04),
 
-            buildSocialButton(
-              width: width,
-              height: height * 0.055,
-              color: AppColors.primaryWhite,
-              icon: FontAwesomeIcons.google,
-              iconColor: AppColors.pureBlack,
-              text: "Continue with Google",
-              textColor: AppColors.primaryBlack,
-              onPressed: () {},
+            // 4) Social buttons area
+            Flexible(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    buildSocialButton(
+                      width: double.infinity,
+                      height: 48,
+                      color: AppColors.facebookColor,
+                      icon: Icons.facebook,
+                      iconColor: AppColors.primaryWhite,
+                      text: "Continue with Facebook",
+                      textColor: AppColors.primaryWhite,
+                      onPressed: () {},
+                    ),
+                    const SizedBox(height: 12),
+                    buildSocialButton(
+                      width: double.infinity,
+                      height: 48,
+                      color: AppColors.primaryWhite,
+                      icon: FontAwesomeIcons.google,
+                      iconColor: AppColors.pureBlack,
+                      text: "Continue with Google",
+                      textColor: AppColors.primaryBlack,
+                      onPressed: () {},
+                    ),
+                    const SizedBox(height: 12),
+                    buildSocialButton(
+                      width: double.infinity,
+                      height: 48,
+                      color: AppColors.primaryWhite,
+                      icon: FontAwesomeIcons.apple,
+                      iconColor: AppColors.pureBlack,
+                      text: "Continue with Apple",
+                      textColor: AppColors.primaryBlack,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
             ),
-             SizedBox(height: height * 0.04),
 
-            buildSocialButton(
-              width: width,
-              height: height * 0.055,
-              color: AppColors.primaryWhite,
-              icon: FontAwesomeIcons.apple,
-              iconColor: AppColors.pureBlack,
-              text: "Continue with Apple",
-              textColor: AppColors.primaryBlack,
-              onPressed: () {},
-            )
-
-            
+            // 5) Bottom padding
+            Spacer(flex: 1),
           ],
         ),
-      );
+      ),
+    );
   }
 
   Widget buildInputField({
@@ -121,23 +166,21 @@ class LoginScreen extends StatelessWidget {
     required String hintText,
     bool isPassword = false,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Text(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
             label,
             style: GoogleFonts.poppins(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
               color: AppColors.primaryBlack,
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: TextField(
+          const SizedBox(height: 2),
+          TextField(
             obscureText: isPassword,
             style: GoogleFonts.poppins(
               fontSize: 16,
@@ -154,10 +197,18 @@ class LoginScreen extends StatelessWidget {
                 Icons.check_circle,
                 color: AppColors.primaryBlack,
               ),
+
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(
+                  color: AppColors.primaryBlack,
+                  width: 1.5,
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -167,27 +218,24 @@ class LoginScreen extends StatelessWidget {
     required double height,
     required VoidCallback onPressed,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: SizedBox(
-        width: width,
-        height: height,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            elevation: 2,
-            backgroundColor: AppColors.primaryBlack,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          elevation: 2,
+          backgroundColor: AppColors.primaryBlack,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
           ),
-          onPressed: onPressed,
-          child: Text(
-            text,
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: AppColors.primaryWhite,
-            ),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.primaryWhite,
           ),
         ),
       ),
@@ -197,7 +245,7 @@ class LoginScreen extends StatelessWidget {
   Widget buildSocialButton({
     required double width,
     required double height,
-   required Color color,
+    required Color color,
     required IconData icon,
     required Color iconColor,
     required String text,
@@ -205,30 +253,27 @@ class LoginScreen extends StatelessWidget {
     Color? textColor,
     BorderSide? border,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: SizedBox(
-        width: width,
-        height: height,
-        child: OutlinedButton.icon(
-          icon: Icon(icon, color: iconColor),
-          label: Text(
-            text,
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: textColor,
-            ),
+    return SizedBox(
+      width: width,
+      height: height,
+      child: OutlinedButton.icon(
+        icon: Icon(icon, color: iconColor),
+        label: Text(
+          text,
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: textColor,
           ),
-          style: OutlinedButton.styleFrom(
-            elevation: 2,
-            backgroundColor: color,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-          onPressed: onPressed,
         ),
+        style: OutlinedButton.styleFrom(
+          elevation: 2,
+          backgroundColor: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        onPressed: onPressed,
       ),
     );
   }
