@@ -1,5 +1,6 @@
 import 'package:ecommmerce_app/Screens/login_screen.dart';
 import 'package:ecommmerce_app/Screens/signup_screen.dart';
+import 'package:ecommmerce_app/Screens/success_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +15,8 @@ class EcommerceApp extends StatelessWidget {
     return const MaterialApp(
       title: 'E-commerce App',
       // home: LoginScreen(),
-      home: SignupScreen(),
+      // home: SignupScreen(),
+      home: SuccessScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

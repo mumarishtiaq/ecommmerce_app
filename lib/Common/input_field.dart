@@ -2,7 +2,7 @@ import 'package:ecommmerce_app/Common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class InputField extends StatelessWidget {
+class InputField extends StatefulWidget {
   final String label;
   final String hintText;
   final bool isPassword;
@@ -15,6 +15,13 @@ class InputField extends StatelessWidget {
   });
 
   @override
+  State<InputField> createState() => _InputFieldState();
+}
+
+class _InputFieldState extends State<InputField> {
+   bool isPasswordVisible = false;
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -22,7 +29,7 @@ class InputField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            label,
+            widget.label,
             style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -31,22 +38,20 @@ class InputField extends StatelessWidget {
           ),
           // const SizedBox(height: 2),
           TextField(
-            obscureText: isPassword,
+            obscureText: widget.isPassword && !isPasswordVisible,
             style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w500,
               color: AppColors.primaryBlack,
             ),
             decoration: InputDecoration(
-              hintText: hintText,
+              hintText: widget.hintText,
               hintStyle: GoogleFonts.poppins(
                 fontSize: 16,
                 color: AppColors.greyText,
               ),
-              suffixIcon: Icon(
-                Icons.check_circle,
-                color: AppColors.primaryBlack,
-              ),
+
+              suffixIcon: _buildSuffixIcon(color: AppColors.primaryBlack),
 
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -60,5 +65,32 @@ class InputField extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildSuffixIcon({
+    required Color color,
+  }) {
+    if (widget.isPassword) {
+      return IconButton(
+        icon: Icon(
+          isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+          color: color,
+        ),
+        onPressed: () {
+          togglePasswordVisiblity();
+        },
+      );
+    } else {
+      return Icon(
+        Icons.check_circle,
+        color: color,
+      );
+    }
+  }
+
+   void togglePasswordVisiblity() {
+    setState(() {
+      isPasswordVisible = !isPasswordVisible;
+    });
   }
 }

@@ -7,41 +7,41 @@ import 'package:google_fonts/google_fonts.dart';
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          SizedBox(height: size.height * 0.03),
-          Flexible(
-            flex: 3,
-            child: _createTopSection(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              size: size,
-            ),
+         resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-
-          SizedBox(height: size.height * 0.05),
-
-          Flexible(
-            flex: 5,
-            child: _buildInputFieldSection(
-              color: const Color.fromARGB(255, 255, 255, 255),
-            ),
+          child: Column(
+            children: [
+              SizedBox(height: size.height * 0.03),
+              _createTopSection(
+                color: const Color.fromARGB(255, 255, 255, 255),
+                size: size,
+              ),
+          
+              SizedBox(height: size.height * 0.05),
+          
+              _buildInputFieldSection(
+                color: const Color.fromARGB(255, 255, 255, 255),
+              ),
+          
+              SizedBox(height: size.height * 0.02),
+          
+              _createBottomSection(
+                color: const Color.fromARGB(255, 255, 255, 255),
+              ),
+              SizedBox(height: size.height * 0.02),
+            ],
           ),
-
-          SizedBox(height: size.height * 0.02),
-
-          Flexible(
-            flex: 2,
-            child: _createBottomSection(
-              color: const Color.fromARGB(255, 255, 255, 255),
-            ),
-          ),
-          SizedBox(height: size.height * 0.02),
-        ],
+        ),
       ),
     );
   }
